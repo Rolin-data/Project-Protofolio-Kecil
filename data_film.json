@@ -1,0 +1,290 @@
+[
+  {
+    "judul": "The Dark Knight",
+    "genre": "aksi",
+    "tahun": 2008,
+    "durasi": 152,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Mad Max: Fury Road",
+    "genre": "aksi",
+    "tahun": 2015,
+    "durasi": 120,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "John Wick",
+    "genre": "aksi",
+    "tahun": 2014,
+    "durasi": 101,
+    "rating": 7.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Mission: Impossible - Fallout",
+    "genre": "aksi",
+    "tahun": 2018,
+    "durasi": 147,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Die Hard",
+    "genre": "aksi",
+    "tahun": 1988,
+    "durasi": 132,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "The Avengers",
+    "genre": "aksi",
+    "tahun": 2012,
+    "durasi": 143,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "The Shawshank Redemption",
+    "genre": "drama",
+    "tahun": 1994,
+    "durasi": 142,
+    "rating": 9.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Forrest Gump",
+    "genre": "drama",
+    "tahun": 1994,
+    "durasi": 142,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Schindler's List",
+    "genre": "drama",
+    "tahun": 1993,
+    "durasi": 195,
+    "rating": 9.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Parasite",
+    "genre": "drama",
+    "tahun": 2019,
+    "durasi": 132,
+    "rating": 9.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Whiplash",
+    "genre": "drama",
+    "tahun": 2014,
+    "durasi": 106,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "The Pursuit of Happyness",
+    "genre": "drama",
+    "tahun": 2006,
+    "durasi": 117,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "The Grand Budapest Hotel",
+    "genre": "komedi",
+    "tahun": 2014,
+    "durasi": 99,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Superbad",
+    "genre": "komedi",
+    "tahun": 2007,
+    "durasi": 113,
+    "rating": 7.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Groundhog Day",
+    "genre": "komedi",
+    "tahun": 1993,
+    "durasi": 101,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "School of Rock",
+    "genre": "komedi",
+    "tahun": 2003,
+    "durasi": 108,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Bridesmaids",
+    "genre": "komedi",
+    "tahun": 2011,
+    "durasi": 125,
+    "rating": 7.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Monty Python and the Holy Grail",
+    "genre": "komedi",
+    "tahun": 1975,
+    "durasi": 91,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "The Conjuring",
+    "genre": "horor",
+    "tahun": 2013,
+    "durasi": 112,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "The Shining",
+    "genre": "horor",
+    "tahun": 1980,
+    "durasi": 144,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Get Out",
+    "genre": "horor",
+    "tahun": 2017,
+    "durasi": 104,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Hereditary",
+    "genre": "horor",
+    "tahun": 2018,
+    "durasi": 127,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Jaws",
+    "genre": "horor",
+    "tahun": 1975,
+    "durasi": 124,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "A Nightmare on Elm Street",
+    "genre": "horor",
+    "tahun": 1984,
+    "durasi": 91,
+    "rating": 7.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Spirited Away",
+    "genre": "animasi",
+    "tahun": 2001,
+    "durasi": 125,
+    "rating": 9.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Spider-Man: Into the Spider-Verse",
+    "genre": "animasi",
+    "tahun": 2018,
+    "durasi": 117,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Coco",
+    "genre": "animasi",
+    "tahun": 2017,
+    "durasi": 105,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Toy Story",
+    "genre": "animasi",
+    "tahun": 1995,
+    "durasi": 81,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Finding Nemo",
+    "genre": "animasi",
+    "tahun": 2003,
+    "durasi": 100,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Up",
+    "genre": "animasi",
+    "tahun": 2009,
+    "durasi": 96,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Free Solo",
+    "genre": "dokumenter",
+    "tahun": 2018,
+    "durasi": 100,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "Jiro Dreams of Sushi",
+    "genre": "dokumenter",
+    "tahun": 2011,
+    "durasi": 81,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "13th",
+    "genre": "dokumenter",
+    "tahun": 2016,
+    "durasi": 100,
+    "rating": 9.0,
+    "catatan": ""
+  },
+  {
+    "judul": "March of the Penguins",
+    "genre": "dokumenter",
+    "tahun": 2005,
+    "durasi": 80,
+    "rating": 8.0,
+    "catatan": ""
+  },
+  {
+    "judul": "Won't You Be My Neighbor?",
+    "genre": "dokumenter",
+    "tahun": 2018,
+    "durasi": 94,
+    "rating": 8.5,
+    "catatan": ""
+  },
+  {
+    "judul": "He Named Me Malala",
+    "genre": "dokumenter",
+    "tahun": 2015,
+    "durasi": 87,
+    "rating": 8.0,
+    "catatan": ""
+  }
+]

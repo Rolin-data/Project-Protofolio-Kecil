@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rekomendasi Film &mdash; katalog film pilihan</title>
+<meta name="description" content="Katalog film pilihan yang bisa dicari, disaring per genre, dan diurutkan sesuai selera. Ada juga penyusun paket marathon sesuai waktu yang kamu punya.">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="Rekomendasi Film">
+<meta property="og:description" content="Katalog film pilihan yang bisa dicari, disaring per genre, dan diurutkan sesuai selera.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f172a'/%3E%3Ctext x='50' y='71' font-size='58' font-family='system-ui,sans-serif' font-weight='700' fill='%23fbbf24' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 7rem; }
+  :focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+<!-- ========================================================================== -->
+<!-- Header                                                                     -->
+<!-- ========================================================================== -->
+<header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-900 text-white">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2 md:py-3">
+
+    <a href="#atas" class="order-1 shrink-0 text-[15px] font-bold tracking-tight">
+      Rekomendasi<span class="text-amber-400">Film</span>
+    </a>
+
+    <form id="form-cari" class="order-2 flex min-w-0 flex-1 gap-2 md:order-3 md:ml-auto md:w-72 md:flex-none" role="search">
+      <label for="kata" class="sr-only">Cari film</label>
+      <input id="kata" name="kata" type="search" autocomplete="off"
+             placeholder="Cari judul film&hellip;"
+             class="min-w-0 flex-1 rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-sm text-white placeholder:text-slate-400 focus:border-blue-500 focus:outline-none">
+      <button type="submit"
+              class="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium hover:bg-blue-500">Cari</button>
+    </form>
+
+    <nav class="order-3 -mx-1 flex w-full gap-1 overflow-x-auto px-1 text-sm md:order-2 md:w-auto md:flex-1 md:overflow-visible"
+         aria-label="Navigasi utama">
+      <a href="#genre" class="shrink-0 rounded px-2.5 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-white">Genre</a>
+      <a href="#katalog" class="shrink-0 rounded px-2.5 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-white">Katalog</a>
+      <a href="#marathon" class="shrink-0 rounded px-2.5 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-white">Marathon</a>
+    </nav>
+
+  </div>
+</header>
+
+<main id="atas">
+
+<!-- ========================================================================== -->
+<!-- Hero                                                                       -->
+<!-- ========================================================================== -->
+<section class="border-b border-slate-200 bg-slate-50">
+  <div class="mx-auto max-w-6xl px-4 py-9 sm:py-12">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Rekomendasi film</h1>
+    <p class="mt-3 max-w-2xl text-slate-600">
+      Katalog film pilihan yang bisa dicari, disaring per genre, dan diurutkan sesuai
+      selera. Biar nggak bingung lagi mau nonton apa nanti malam.
+    </p>
+    <dl class="mt-7 flex flex-wrap gap-x-10 gap-y-4 text-sm">
+      <div>
+        <dt class="text-slate-500">Film</dt>
+        <dd id="stat-judul" class="mt-0.5 text-2xl font-semibold tabular-nums">&mdash;</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Genre</dt>
+        <dd id="stat-genre" class="mt-0.5 text-2xl font-semibold tabular-nums">&mdash;</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Rata-rata rating</dt>
+        <dd id="stat-rating" class="mt-0.5 text-2xl font-semibold tabular-nums">&mdash;</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<div id="peringatan" class="hidden border-b border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900"></div>
+
+<!-- ========================================================================== -->
+<!-- Jelajahi genre                                                             -->
+<!-- ========================================================================== -->
+<section id="genre" class="mx-auto max-w-6xl px-4 py-9">
+  <h2 class="text-xl font-semibold tracking-tight">Jelajahi genre</h2>
+  <p class="mt-1 text-sm text-slate-600">Pilih satu genre untuk langsung menyaring katalog di bawahnya.</p>
+  <div id="kartu-genre" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- Katalog                                                                    -->
+<!-- ========================================================================== -->
+<section id="katalog" class="border-t border-slate-200">
+  <div class="mx-auto max-w-6xl px-4 py-9">
+
+    <div id="saran-box" class="hidden">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
+        <p id="saran-teks" class="text-sm text-blue-900"></p>
+        <div id="saran-chip" class="flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+
+    <div class="mt-5 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-semibold tracking-tight">Katalog film</h2>
+        <p id="jumlah-hasil" class="mt-1 text-sm text-slate-500">Memuat&hellip;</p>
+      </div>
+
+      <div class="flex items-center gap-2 text-sm">
+        <label for="urutan" class="text-slate-600">Urutkan</label>
+        <select id="urutan"
+                class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-slate-900 focus:border-blue-500 focus:outline-none">
+          <option value="rating">Rating tertinggi</option>
+          <option value="tahun">Tahun terbaru</option>
+          <option value="durasi">Durasi terpendek</option>
+          <option value="judul">Judul A&ndash;Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-4 flex gap-2 overflow-x-auto pb-1" id="filter-genre" role="group" aria-label="Saring per genre"></div>
+
+    <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+      <div class="hidden bg-slate-50 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 md:grid md:grid-cols-[2.5rem_1fr_5rem_6rem_4.5rem] md:gap-3">
+        <span>#</span>
+        <span>Judul</span>
+        <span>Tahun</span>
+        <span>Durasi</span>
+        <span class="text-right">Rating</span>
+      </div>
+      <ul id="daftar-film" class="divide-y divide-slate-200"></ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- Marathon                                                                   -->
+<!-- ========================================================================== -->
+<section id="marathon" class="border-y border-slate-200 bg-slate-50">
+  <div class="mx-auto max-w-6xl px-4 py-9">
+    <h2 class="text-xl font-semibold tracking-tight">Susun paket marathon</h2>
+    <p class="mt-1 max-w-2xl text-sm text-slate-600">
+      Punya waktu luang nanti malam? Masukkan batasnya dalam menit, nanti disusun
+      paket berisi sampai tiga film yang paling pas dengan waktu tersebut.
+    </p>
+
+    <form id="form-marathon" class="mt-4 flex max-w-md gap-2">
+      <label for="batas" class="sr-only">Batas waktu dalam menit</label>
+      <input id="batas" name="batas" type="text" inputmode="numeric" autocomplete="off"
+             placeholder="contoh: 240"
+             class="min-w-0 flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none">
+      <button type="submit"
+              class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500">Susun paket</button>
+    </form>
+
+    <div id="hasil-marathon" class="mt-5"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========================================================================== -->
+<!-- Footer                                                                     -->
+<!-- ========================================================================== -->
+<footer class="bg-slate-900 text-slate-400">
+  <div class="mx-auto max-w-6xl px-4 py-10 text-sm">
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="lg:col-span-2">
+        <p class="text-base font-bold tracking-tight text-white">
+          Rekomendasi<span class="text-amber-400">Film</span>
+        </p>
+        <p class="mt-2 max-w-sm">
+          Katalog film pilihan buat cari tontonan, disaring per genre, dan disusun
+          jadi paket marathon.
+        </p>
+      </div>
+
+      <nav aria-label="Jelajahi">
+        <h2 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Jelajahi</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a href="#genre" class="hover:text-white">Genre</a></li>
+          <li><a href="#katalog" class="hover:text-white">Katalog</a></li>
+          <li><a href="#marathon" class="hover:text-white">Marathon</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Lainnya</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a href="BLOG_POST.html" class="hover:text-white">Blog</a></li>
+          <li><a href="https://github.com/Rolin-data/Rekomendasi-Film" class="hover:text-white">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-slate-800 pt-6 text-xs">
+      <p>&copy; 2026 Rolin Stallin. Semua penilaian berskala 0&ndash;10.</p>
+      <p>Selamat menonton.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+// ===========================================================================
+// Data
+// ===========================================================================
+let DATA = [];
+
+const GENRE_VALID = ["aksi", "drama", "komedi", "horor", "animasi", "dokumenter"];
+
+// Warna aksen kartu genre (dekoratif saja).
+const WARNA_GENRE = {
+  aksi: "bg-rose-500",
+  drama: "bg-indigo-500",
+  komedi: "bg-amber-500",
+  horor: "bg-slate-700",
+  animasi: "bg-emerald-500",
+  dokumenter: "bg-sky-500"
+};
+
+// Kamus kecil: kata yang sering diketik orang -> genre. Pelengkap, bukan satu-satunya sumber.
+const PETA_KATA = {
+  aksi: ["tembak", "perang", "kejar", "jahat", "detektif", "pahlawan",
+         "superhero", "senjata", "kejahatan", "ledakan", "kejar-kejaran",
+         "pertarungan", "spionase"],
+  drama: ["sedih", "haru", "keluarga", "kehidupan", "perjuangan",
+          "persahabatan", "harapan", "emosi", "mengharukan", "serius"],
+  komedi: ["lucu", "konyol", "hiburan", "ketawa", "jenaka", "lawak",
+           "santai", "bercanda", "ngakak"],
+  horor: ["hantu", "seram", "menakutkan", "ketakutan", "zombie", "teror",
+          "mencekam", "setan", "angker", "gelap"],
+  animasi: ["kartun", "animasi", "anak", "dongeng", "imajinasi", "lucu",
+            "petualangan"],
+  dokumenter: ["fakta", "nyata", "sejarah", "riwayat", "alam", "satwa",
+               "dokumenter", "pendidikan"]
+};
+
+// Status tampilan
+let stateKata = "";
+let stateGenre = null;   // null = semua genre
+
+// ===========================================================================
+// Utilitas
+// ===========================================================================
+function escapeHtml(teks) {
+  return String(teks)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function kapital(teks) {
+  return teks.charAt(0).toUpperCase() + teks.slice(1);
+}
+
+function parseAngka(teks) {
+  const bersih = teks.replace(/[.,\s]/g, "");
+  if (!/^\d+$/.test(bersih)) return null;
+  const nilai = parseInt(bersih, 10);
+  return nilai > 0 ? nilai : null;
+}
+
+function formatDurasi(menit) {
+  const jam = Math.floor(menit / 60);
+  const sisa = menit % 60;
+  if (jam && sisa) return jam + " jam " + sisa + " menit";
+  if (jam) return jam + " jam";
+  return sisa + " menit";
+}
+
+function formatDurasiSingkat(menit) {
+  const jam = Math.floor(menit / 60);
+  const sisa = menit % 60;
+  if (jam && sisa) return jam + " j " + sisa + " m";
+  if (jam) return jam + " j";
+  return sisa + " m";
+}
+
+// ===========================================================================
+// Logika rekomendasi
+// ===========================================================================
+function skorGenre(data, kata, genre) {
+  kata = kata.toLowerCase().trim();
+  if (!kata) return 0;
+
+  let skor = 0;
+  if (kata.indexOf(genre) >= 0 || genre.indexOf(kata) >= 0) skor += 5;
+
+  const kunci = PETA_KATA[genre] || [];
+  for (let i = 0; i < kunci.length; i++) {
+    if (kata === kunci[i]) skor += 4;
+    else if (kata.indexOf(kunci[i]) >= 0) skor += 3;
+    else if (kunci[i].indexOf(kata) >= 0) skor += 1;
+  }
+
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].genre === genre && data[i].judul.toLowerCase().indexOf(kata) >= 0) skor += 2;
+  }
+  return skor;
+}
+
+function saranKategori(data, kata) {
+  const bertahan = [];
+  for (let i = 0; i < GENRE_VALID.length; i++) {
+    const genre = GENRE_VALID[i];
+    const skor = skorGenre(data, kata, genre);
+    if (skor > 0) bertahan.push({ genre: genre, skor: skor });
+  }
+  bertahan.sort(function (a, b) {
+    if (b.skor !== a.skor) return b.skor - a.skor;
+    return GENRE_VALID.indexOf(a.genre) - GENRE_VALID.indexOf(b.genre);
+  });
+  return bertahan;
+}
+
+function urutkan(data, kunci) {
+  const salinan = data.slice();
+  if (kunci === "judul") {
+    salinan.sort(function (a, b) { return a.judul.toLowerCase() < b.judul.toLowerCase() ? -1 : 1; });
+  } else if (kunci === "tahun") {
+    salinan.sort(function (a, b) { return b.tahun - a.tahun; });
+  } else if (kunci === "durasi") {
+    salinan.sort(function (a, b) { return a.durasi - b.durasi; });
+  } else {
+    salinan.sort(function (a, b) { return b.rating - a.rating; });
+  }
+  return salinan;
+}
+
+function cariKataKunci(data, kata) {
+  kata = kata.toLowerCase().trim();
+  if (!kata) return data.slice();
+  return data.filter(function (f) {
+    return f.judul.toLowerCase().indexOf(kata) >= 0
+      || String(f.tahun).indexOf(kata) >= 0
+      || (f.catatan || "").toLowerCase().indexOf(kata) >= 0;
+  });
+}
+
+function rekomendasiSerupa(data, film, jumlah) {
+  jumlah = jumlah || 3;
+  const kandidat = data.filter(function (l) {
+    return l.genre === film.genre && l.judul !== film.judul;
+  });
+  kandidat.sort(function (a, b) {
+    return Math.abs(a.rating - film.rating) - Math.abs(b.rating - film.rating);
+  });
+  const sezaman = kandidat.filter(function (l) { return Math.abs(l.tahun - film.tahun) <= 10; });
+  const bedaZaman = kandidat.filter(function (l) { return Math.abs(l.tahun - film.tahun) > 10; });
+  return sezaman.concat(bedaZaman).slice(0, jumlah);
+}
+
+function kombinasi(arr, jumlah) {
+  if (jumlah === 0) return [[]];
+  if (arr.length < jumlah) return [];
+  const pertama = arr[0];
+  const sisa = arr.slice(1);
+  const dengan = kombinasi(sisa, jumlah - 1).map(function (isi) {
+    return [pertama].concat(isi);
+  });
+  return dengan.concat(kombinasi(sisa, jumlah));
+}
+
+function kombinasiTerbaik(data, batas, jumlah) {
+  let terbaik = null;
+  const semua = kombinasi(data, jumlah);
+  for (let n = 0; n < semua.length; n++) {
+    const isi = semua[n];
+    let total = 0, totalRating = 0;
+    for (let m = 0; m < isi.length; m++) {
+      total += isi[m].durasi;
+      totalRating += isi[m].rating;
+    }
+    if (total > batas) continue;
+    if (!terbaik || total > terbaik.total ||
+        (total === terbaik.total && totalRating > terbaik.totalRating)) {
+      terbaik = { film: isi, total: total, totalRating: totalRating };
+    }
+  }
+  if (!terbaik) return null;
+  terbaik.ratingRata = Math.floor((terbaik.totalRating / jumlah) * 10 + 0.5) / 10;
+  terbaik.sisa = batas - terbaik.total;
+  return terbaik;
+}
+
+function paketMarathon(data, batas) {
+  if (!data.length) return null;
+  for (let jumlah = 3; jumlah >= 1; jumlah--) {
+    const hasil = kombinasiTerbaik(data, batas, jumlah);
+    if (hasil) return hasil;
+  }
+  return null;
+}
+
+// ===========================================================================
+// Tampilan: kartu genre
+// ===========================================================================
+function renderKartuGenre() {
+  const kotak = document.getElementById("kartu-genre");
+  const kartu = GENRE_VALID.map(function (genre) {
+    const isi = DATA.filter(function (f) { return f.genre === genre; });
+    if (!isi.length) return "";
+
+    let total = 0;
+    let terbaik = isi[0];
+    isi.forEach(function (f) {
+      total += f.rating;
+      if (f.rating > terbaik.rating) terbaik = f;
+    });
+    const rata = (Math.floor((total / isi.length) * 10 + 0.5) / 10).toFixed(1);
+    const aktif = stateGenre === genre;
+
+    return '<button type="button" data-genre="' + genre + '" aria-pressed="' + aktif + '"'
+      + ' class="rounded-lg border bg-white p-4 text-left transition-colors '
+      + (aktif ? 'border-slate-900 ring-1 ring-slate-900' : 'border-slate-200 hover:border-slate-400') + '">'
+      + '<span class="flex items-center gap-2">'
+        + '<span class="inline-block h-2.5 w-2.5 shrink-0 rounded-full ' + (WARNA_GENRE[genre] || "bg-slate-400") + '" aria-hidden="true"></span>'
+        + '<span class="font-semibold text-slate-900">' + escapeHtml(kapital(genre)) + '</span>'
+      + '</span>'
+      + '<span class="mt-2 block text-sm text-slate-500">'
+        + isi.length + ' film &middot; rata-rata ' + rata
+      + '</span>'
+      + '<span class="mt-1 block truncate text-sm text-slate-700">Terbaik: ' + escapeHtml(terbaik.judul) + '</span>'
+    + '</button>';
+  }).join("");
+
+  kotak.innerHTML = kartu || '<p class="text-sm text-slate-500">Belum ada data genre.</p>';
+}
+
+// ===========================================================================
+// Tampilan: filter genre
+// ===========================================================================
+function renderFilterGenre() {
+  const kotak = document.getElementById("filter-genre");
+  const daftar = [{ nilai: null, label: "Semua" }].concat(
+    GENRE_VALID.map(function (g) { return { nilai: g, label: kapital(g) }; })
+  );
+
+  kotak.innerHTML = daftar.map(function (item) {
+    const aktif = stateGenre === item.nilai;
+    const kelas = aktif
+      ? "border-slate-900 bg-slate-900 text-white"
+      : "border-slate-300 bg-white text-slate-600 hover:border-slate-400 hover:text-slate-900";
+    return '<button type="button" data-genre="' + (item.nilai || "") + '" aria-pressed="' + aktif + '"'
+      + ' class="shrink-0 rounded-full border px-3.5 py-1.5 text-sm transition-colors ' + kelas + '">'
+      + escapeHtml(item.label) + '</button>';
+  }).join("");
+}
+
+// ===========================================================================
+// Tampilan: daftar film
+// ===========================================================================
+function barisFilm(film, nomor) {
+  const metaDesktop = escapeHtml(kapital(film.genre))
+    + (film.catatan ? ' &middot; ' + escapeHtml(film.catatan) : "");
+
+  return '<li>'
+    + '<div class="grid grid-cols-[1.75rem_1fr_auto] items-center gap-3 px-3 py-3 transition-colors hover:bg-slate-50 md:grid-cols-[2.5rem_1fr_5rem_6rem_4.5rem] md:px-4">'
+      + '<span class="text-sm tabular-nums text-slate-500">' + nomor + '</span>'
+      + '<div class="min-w-0">'
+        + '<button type="button" class="btn-judul block max-w-full text-left font-medium hover:text-blue-700 md:truncate"'
+          + ' data-judul="' + escapeHtml(film.judul) + '" aria-expanded="false">'
+          + escapeHtml(film.judul)
+        + '</button>'
+        + '<div class="mt-0.5 text-xs text-slate-500 md:hidden">'
+          + film.tahun + ' &middot; ' + film.durasi + ' menit &middot; ' + metaDesktop
+        + '</div>'
+        + '<div class="mt-0.5 hidden truncate text-xs text-slate-500 md:block">' + metaDesktop + '</div>'
+      + '</div>'
+      + '<span class="hidden text-sm tabular-nums text-slate-600 md:block">' + film.tahun + '</span>'
+      + '<span class="hidden text-sm tabular-nums text-slate-600 md:block">' + film.durasi + ' mnt</span>'
+      + '<span class="flex items-center justify-end gap-1 text-sm font-semibold tabular-nums text-slate-800">'
+        + '<span class="text-amber-700" aria-hidden="true">&#9733;</span>'
+        + '<span>' + film.rating.toFixed(1) + '</span>'
+      + '</span>'
+    + '</div>'
+    + '<div class="detail hidden bg-slate-50 px-3 py-4 sm:px-4">'
+      + '<p class="text-sm text-slate-600">Kalau suka <strong class="text-slate-900">' + escapeHtml(film.judul) + '</strong>, coba juga:</p>'
+      + '<ul class="mt-2 space-y-1.5">'
+        + rekomendasiSerupa(DATA, film, 3).map(function (l) {
+            return '<li class="flex items-baseline justify-between gap-4 text-sm">'
+              + '<span class="text-slate-700">' + escapeHtml(l.judul)
+              + ' <span class="text-slate-500">(' + l.tahun + ')</span></span>'
+              + '<span class="shrink-0 tabular-nums text-slate-500">' + l.durasi + ' menit &middot; ' + l.rating.toFixed(1) + '</span>'
+              + '</li>';
+          }).join("")
+      + '</ul>'
+    + '</div>'
+  + '</li>';
+}
+
+function daftarTampil() {
+  let hasil = DATA.slice();
+  if (stateGenre) hasil = hasil.filter(function (f) { return f.genre === stateGenre; });
+  if (stateKata) hasil = cariKataKunci(hasil, stateKata);
+  return urutkan(hasil, document.getElementById("urutan").value);
+}
+
+function renderDaftar() {
+  const hasil = daftarTampil();
+  const ul = document.getElementById("daftar-film");
+  const keterangan = document.getElementById("jumlah-hasil");
+
+  if (!DATA.length) {
+    ul.innerHTML = '<li class="px-4 py-8 text-center text-sm text-slate-500">Belum ada film yang ditampilkan.</li>';
+    keterangan.textContent = "";
+    return;
+  }
+
+  if (!hasil.length) {
+    ul.innerHTML = '<li class="px-4 py-8 text-center text-sm text-slate-500">'
+      + 'Tidak ada film yang cocok dengan &ldquo;' + escapeHtml(stateKata) + '&rdquo;.</li>';
+    keterangan.textContent = "0 dari " + DATA.length + " film";
+    return;
+  }
+
+  ul.innerHTML = hasil.map(barisFilm).join("");
+  keterangan.textContent = "Menampilkan " + hasil.length + " dari " + DATA.length + " film";
+}
+
+// ===========================================================================
+// Tampilan: saran genre
+// ===========================================================================
+function renderSaran(kata, saran) {
+  const kotak = document.getElementById("saran-box");
+  if (!saran.length) {
+    kotak.classList.add("hidden");
+    return;
+  }
+
+  document.getElementById("saran-teks").innerHTML =
+    'Kata kunci <strong>&ldquo;' + escapeHtml(kata) + '&rdquo;</strong> paling dekat dengan genre:';
+
+  document.getElementById("saran-chip").innerHTML = saran.map(function (p) {
+    const aktif = stateGenre === p.genre;
+    const kelas = aktif
+      ? "border-blue-700 bg-blue-700 text-white"
+      : "border-blue-300 bg-white text-blue-800 hover:border-blue-500";
+    return '<button type="button" class="rounded-full border px-3 py-1 text-xs font-medium transition-colors ' + kelas + '"'
+      + ' data-genre="' + p.genre + '">' + escapeHtml(kapital(p.genre)) + '</button>';
+  }).join("");
+
+  kotak.classList.remove("hidden");
+}
+
+function sembunyikanSaran() {
+  document.getElementById("saran-box").classList.add("hidden");
+}
+
+// ===========================================================================
+// Tampilan: marathon
+// ===========================================================================
+function renderMarathon(batas) {
+  const kotak = document.getElementById("hasil-marathon");
+  const paket = paketMarathon(DATA, batas);
+
+  if (!paket) {
+    kotak.innerHTML = '<p class="text-sm text-slate-600">Waktu ' + formatDurasi(batas)
+      + ' belum cukup buat satu film pun. Tambah waktunya, ya.</p>';
+    return;
+  }
+
+  const baris = paket.film.map(function (f, i) {
+    return '<div class="flex items-baseline gap-3 border-b border-slate-200 py-2.5 last:border-0">'
+      + '<span class="w-5 shrink-0 text-sm tabular-nums text-slate-500">' + (i + 1) + '</span>'
+      + '<span class="min-w-0 flex-1 truncate text-sm text-slate-800">' + escapeHtml(f.judul) + '</span>'
+      + '<span class="shrink-0 text-sm tabular-nums text-slate-500">' + formatDurasiSingkat(f.durasi) + '</span>'
+      + '</div>';
+  }).join("");
+
+  const total = '<dl class="mt-4 grid grid-cols-3 gap-4 border-t border-slate-300 pt-4 text-sm">'
+    + '<div><dt class="text-slate-500">Total durasi</dt><dd class="mt-0.5 font-semibold tabular-nums">' + formatDurasiSingkat(paket.total) + '</dd></div>'
+    + '<div><dt class="text-slate-500">Rating rata-rata</dt><dd class="mt-0.5 font-semibold tabular-nums">' + paket.ratingRata.toFixed(1) + '</dd></div>'
+    + '<div><dt class="text-slate-500">Sisa waktu</dt><dd class="mt-0.5 font-semibold tabular-nums">' + formatDurasiSingkat(paket.sisa) + '</dd></div>'
+    + '</dl>';
+
+  kotak.innerHTML = '<div class="rounded-lg border border-slate-200 bg-white p-4">'
+    + '<p class="text-sm font-medium text-slate-900">Paket untuk waktu ' + formatDurasi(batas) + '</p>'
+    + '<div class="mt-2">' + baris + '</div>' + total + '</div>';
+}
+
+// ===========================================================================
+// Statistik hero
+// ===========================================================================
+function renderStatistik() {
+  if (!DATA.length) return;
+  const genre = {};
+  let totalRating = 0;
+  DATA.forEach(function (f) {
+    genre[f.genre] = true;
+    totalRating += f.rating;
+  });
+
+  document.getElementById("stat-judul").textContent = DATA.length;
+  document.getElementById("stat-genre").textContent = Object.keys(genre).length;
+  document.getElementById("stat-rating").textContent =
+    (Math.floor((totalRating / DATA.length) * 10 + 0.5) / 10).toFixed(1);
+}
+
+// ===========================================================================
+// Peristiwa
+// ===========================================================================
+function pilihGenre(genre) {
+  stateGenre = (genre === stateGenre) ? null : genre;
+  stateKata = "";
+  document.getElementById("kata").value = "";
+  sembunyikanSaran();
+  renderKartuGenre();
+  renderFilterGenre();
+  renderDaftar();
+}
+
+function cari(teks) {
+  stateKata = teks.trim();
+  stateGenre = null;
+  document.getElementById("kata").value = stateKata;
+  renderKartuGenre();
+  renderFilterGenre();
+
+  if (stateKata) renderSaran(stateKata, saranKategori(DATA, stateKata));
+  else sembunyikanSaran();
+
+  renderDaftar();
+}
+
+document.getElementById("form-cari").addEventListener("submit", function (e) {
+  e.preventDefault();
+  cari(document.getElementById("kata").value);
+});
+
+document.getElementById("kata").addEventListener("input", function (e) {
+  if (!e.target.value.trim()) cari("");
+});
+
+document.getElementById("kartu-genre").addEventListener("click", function (e) {
+  const btn = e.target.closest("[data-genre]");
+  if (!btn) return;
+  pilihGenre(btn.dataset.genre);
+  document.getElementById("katalog").scrollIntoView({ block: "start" });
+});
+
+document.getElementById("filter-genre").addEventListener("click", function (e) {
+  const btn = e.target.closest("[data-genre]");
+  if (!btn) return;
+  pilihGenre(btn.dataset.genre || null);
+});
+
+document.getElementById("saran-chip").addEventListener("click", function (e) {
+  const btn = e.target.closest("[data-genre]");
+  if (!btn) return;
+  stateGenre = null;          // paksa jadi aktif, bukan toggle
+  pilihGenre(btn.dataset.genre);
+  document.getElementById("katalog").scrollIntoView({ block: "start" });
+});
+
+document.getElementById("daftar-film").addEventListener("click", function (e) {
+  const btn = e.target.closest(".btn-judul");
+  if (!btn) return;
+  const baris = btn.closest("li");
+  if (!baris) return;
+  const detail = baris.lastElementChild;
+  if (!detail || !detail.classList.contains("detail")) return;
+  const terbuka = !detail.classList.contains("hidden");
+  detail.classList.toggle("hidden", terbuka);
+  btn.setAttribute("aria-expanded", String(!terbuka));
+});
+
+document.getElementById("urutan").addEventListener("change", renderDaftar);
+
+document.getElementById("form-marathon").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const batas = parseAngka(document.getElementById("batas").value);
+  const kotak = document.getElementById("hasil-marathon");
+  if (batas === null) {
+    kotak.innerHTML = '<p class="text-sm text-red-700">Masukkan angka menit lebih dari nol, ya. Contoh: 240.</p>';
+    return;
+  }
+  renderMarathon(batas);
+});
+
+// ===========================================================================
+// Muat data
+// ===========================================================================
+(function muat() {
+  fetch("data_film.json")
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      DATA = data;
+      renderStatistik();
+      renderKartuGenre();
+      renderFilterGenre();
+      renderDaftar();
+    })
+    .catch(function () {
+      document.getElementById("jumlah-hasil").textContent = "Katalog belum bisa ditampilkan.";
+      document.getElementById("daftar-film").innerHTML =
+        '<li class="px-4 py-8 text-center text-sm text-slate-500">Film gagal dimuat. Coba muat ulang halaman ini.</li>';
+    });
+})();
+</script>
+</body>
+</html>
