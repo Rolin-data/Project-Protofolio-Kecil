@@ -118,7 +118,7 @@ python film.py
 ## Struktur folder
 
 ```
-Rekomendasi-Film/
+Project-Protofolio-Kecil/
 ├── film.py            # program CLI
 ├── data_film.json     # data (sumber tunggal)
 ├── index.html         # versi web
@@ -132,6 +132,6 @@ Rekomendasi-Film/
 
 ## Link
 
-- **Demo web:** https://rolin-data.github.io/Rekomendasi-Film/
-- **Tulisan teknis:** https://rolin-data.github.io/Rekomendasi-Film/BLOG_POST.html
-- **Repo:** https://github.com/Rolin-data/Rekomendasi-Film
+- **Demo web:** https://rolin-data.github.io/Project-Protofolio-Kecil/
+- **Tulisan teknis:** https://rolin-data.github.io/Project-Protofolio-Kecil/BLOG_POST.html
+- **Repo:** https://github.com/Rolin-data/Project-Protofolio-Kecil

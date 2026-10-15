@@ -246,6 +246,6 @@ endpoint CRUD berarti nambah server, nambah deploy, dan nambah tempat buat bug.
 
 ## Link
 
-- [Demo web](https://rolin-data.github.io/Rekomendasi-Film/)
-- [Repo GitHub](https://github.com/Rolin-data/Rekomendasi-Film)
+- [Demo web](https://rolin-data.github.io/Project-Protofolio-Kecil/)
+- [Repo GitHub](https://github.com/Rolin-data/Project-Protofolio-Kecil)
 - [Baca juga: project kuliner sebelumnya](https://rolin-data.github.io/Rekomendasi-Kuliner-Di-Indonesia/BLOG_POST.html)

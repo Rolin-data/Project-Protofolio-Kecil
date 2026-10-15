@@ -16,7 +16,7 @@ md_path = "BLOG_POST.md"
 html_path = "BLOG_POST.html"
 tanggal = "15 Oktober 2026"
 
-REPO = "https://github.com/Rolin-data/Rekomendasi-Film"
+REPO = "https://github.com/Rolin-data/Project-Protofolio-Kecil"
 
 with io.open(md_path, "r", encoding="utf-8") as f:
     md_text = f.read()
@@ -117,7 +117,7 @@ footer.kaki a{color:#4f46e5}
     + """ &middot;
   Kode lengkapnya di <a href=\""""
     + REPO
-    + """\">github.com/Rolin-data/Rekomendasi-Film</a>.
+    + """\">github.com/Rolin-data/Project-Protofolio-Kecil</a>.
 </footer>
 </body>
 </html>"""
